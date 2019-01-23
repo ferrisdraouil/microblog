@@ -4,7 +4,7 @@ import NavBar from './Navbar';
 import HomePage from './HomePage';
 import BlogForm from './BlogForm';
 import BlogDetails from './BlogDetails';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 
 class App extends Component {
@@ -14,6 +14,8 @@ class App extends Component {
       posts: []
     };
     this.addPost = this.addPost.bind(this);
+    this.removePost = this.removePost.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
   addPost(postObj) {
     postObj.id = uuid();
@@ -21,7 +23,24 @@ class App extends Component {
     this.setState({ posts });
   }
 
-  handleEdit() {}
+  removePost(id) {
+    let allPosts = [...this.state.posts];
+    let newPosts = allPosts.filter(post => post.id !== id);
+    this.setState({ posts: newPosts });
+  }
+
+  handleEdit(obj, id) {
+    let newPosts = this.state.posts.filter(post => post.id !== id);
+    let editedPost = {
+      title: obj.title,
+      description: obj.description,
+      body: obj.body,
+      id: id
+    };
+    newPosts = [...newPosts, editedPost];
+    this.setState({ posts: newPosts });
+  }
+
   render() {
     return (
       <div className="App">
@@ -57,6 +76,8 @@ class App extends Component {
                   description={post.description}
                   id={post.id}
                   key={uuid()}
+                  remove={this.removePost}
+                  handleEdit={this.handleEdit}
                 />
               );
             }}
@@ -67,4 +88,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -8,11 +8,16 @@ import {
   Card,
   CardBody
 } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 
 class BlogForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: '', description: '', body: '' };
+    this.state = {
+      title: props.title || '',
+      description: props.description || '',
+      body: props.body || ''
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,7 +26,12 @@ class BlogForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.addPost(this.state);
+    if (this.props.id) {
+      this.props.addPost(this.state, this.props.id);
+    } else {
+      this.props.addPost(this.state);
+    }
+
     this.setState({ title: '', description: '', body: '' });
     this.props.history.push('/');
   }
@@ -51,7 +61,7 @@ class BlogForm extends Component {
                   <Input
                     name="title"
                     id="title"
-                    defaultValue={this.props.title || ''}
+                    defaultValue={this.state.title}
                     onChange={this.handleChange}
                     required
                   />
@@ -62,7 +72,7 @@ class BlogForm extends Component {
                   <Input
                     name="description"
                     id="description"
-                    defaultValue={this.props.description || ''}
+                    defaultValue={this.state.description}
                     onChange={this.handleChange}
                     required
                   />
@@ -73,7 +83,7 @@ class BlogForm extends Component {
                   <Input
                     name="body"
                     id="body"
-                    defaultValue={this.props.body || ''}
+                    defaultValue={this.state.body}
                     onChange={this.handleChange}
                     required
                   />
@@ -91,4 +101,4 @@ class BlogForm extends Component {
   }
 }
 
-export default BlogForm;
+export default withRouter(BlogForm);
