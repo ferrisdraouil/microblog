@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CardBody, Card, CardText, CardTitle } from 'reactstrap';
 import BlogForm from './BlogForm';
+import CommentList from './CommentList';
 
 class BlogDetails extends Component {
   constructor(props) {
@@ -57,6 +58,12 @@ class BlogDetails extends Component {
               <CardText>{this.props.body}</CardText>
             </CardBody>
           </Card>
+          <CommentList
+            id={this.props.id}
+            addComment={this.props.addComment}
+            deleteComment={this.props.deleteComment}
+            comments={this.props.comments}
+          />
         </section>
       );
     }

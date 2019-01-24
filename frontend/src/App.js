@@ -16,6 +16,8 @@ class App extends Component {
     this.addPost = this.addPost.bind(this);
     this.removePost = this.removePost.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.addComment = this.addComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
   }
   addPost(postObj) {
     postObj.id = uuid();
@@ -39,6 +41,35 @@ class App extends Component {
     };
     newPosts = [...newPosts, editedPost];
     this.setState({ posts: newPosts });
+  }
+
+  addComment(comment, postId) {
+    console.log('POST ID', postId);
+    let allPosts = [...this.state.posts];
+    let postIdx = allPosts.findIndex(post => post.id === postId);
+
+    console.log('ALL POSTS', allPosts);
+    console.log('POST IDX', postIdx);
+
+    if (allPosts[postIdx].comments) {
+      let newComments = [...allPosts[postIdx].comments];
+      newComments.push({ text: comment.comment, id: uuid() });
+      allPosts[postIdx].comments = newComments;
+    } else {
+      allPosts[postIdx].comments = [];
+      allPosts[postIdx].comments.push({ text: comment.comment, id: uuid() });
+    }
+    this.setState({ posts: allPosts });
+  }
+
+  deleteComment(postId, commentId) {
+    let allPosts = [...this.state.posts];
+    let postIdx = allPosts.findIndex(post => post.id === postId);
+    let allComments = [...allPosts[postIdx].comments];
+
+    let newComments = allComments.filter(comment => comment.id !== commentId);
+    allPosts[postIdx].comments = newComments;
+    this.setState({ posts: allPosts });
   }
 
   render() {
@@ -76,8 +107,11 @@ class App extends Component {
                   description={post.description}
                   id={post.id}
                   key={uuid()}
+                  comments={post.comments}
                   remove={this.removePost}
                   handleEdit={this.handleEdit}
+                  addComment={this.addComment}
+                  deleteComment={this.deleteComment}
                 />
               );
             }}
