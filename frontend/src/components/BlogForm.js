@@ -26,10 +26,10 @@ class BlogForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    if (this.props.id) {
-      this.props.addPost(this.state, this.props.id);
-    } else {
+    if (!this.props.postId) {
       this.props.addPost(this.state);
+    } else {
+      this.props.editPost(this.state, this.props.postId);
     }
 
     this.setState({ title: '', description: '', body: '' });

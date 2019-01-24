@@ -7,7 +7,7 @@ class Comment extends Component {
   }
 
   handleClick(e) {
-    this.props.deleteComment(this.props.postId, this.props.commentId);
+    this.props.deleteComment(this.props.commentId, this.props.postId);
   }
 
   render() {

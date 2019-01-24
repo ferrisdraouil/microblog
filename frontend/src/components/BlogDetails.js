@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { CardBody, Card, CardText, CardTitle } from 'reactstrap';
-import BlogForm from './BlogForm';
+import BlogFormContainer from '../containers/BlogFormContainer';
 import CommentList from './CommentList';
 
 class BlogDetails extends Component {
@@ -14,7 +14,7 @@ class BlogDetails extends Component {
   }
 
   handleRemove() {
-    this.props.remove(this.props.id);
+    this.props.removePost(this.props.postId);
     this.props.history.push('/');
   }
 
@@ -28,12 +28,11 @@ class BlogDetails extends Component {
   render() {
     if (this.state.isEdited) {
       return (
-        <BlogForm
-          title={this.props.title}
-          body={this.props.body}
-          description={this.props.description}
-          id={this.props.id}
-          addPost={this.props.handleEdit}
+        <BlogFormContainer
+          postId={this.props.postId}
+          title={this.props.post.title}
+          description={this.props.post.description}
+          body={this.props.post.body}
         />
       );
     } else {
@@ -42,7 +41,7 @@ class BlogDetails extends Component {
           <Card>
             <CardBody>
               <CardTitle className="font-weight-bold text-center">
-                {this.props.title}
+                {this.props.post.title}
                 <span>
                   <button onClick={this.handleRemove}>
                     <i class="fas fa-trash-alt" />
@@ -53,16 +52,16 @@ class BlogDetails extends Component {
                 </span>
               </CardTitle>
               <CardText className="font-italic">
-                {this.props.description}
+                {this.props.post.description}
               </CardText>
-              <CardText>{this.props.body}</CardText>
+              <CardText>{this.props.post.body}</CardText>
             </CardBody>
           </Card>
           <CommentList
-            id={this.props.id}
+            postId={this.props.postId}
             addComment={this.props.addComment}
             deleteComment={this.props.deleteComment}
-            comments={this.props.comments}
+            comments={this.props.post.comments}
           />
         </section>
       );

@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import NavBar from './Navbar';
 import HomePageContainer from './containers/HomePageContainer';
-import BlogForm from './components/BlogForm';
-import BlogDetails from './components/BlogDetails';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 import BlogDetailsContainer from './containers/BlogDetailsContainer';
+import BlogFormContainer from './containers/BlogFormContainer';
 
 class App extends Component {
   constructor(props) {
@@ -81,9 +80,7 @@ class App extends Component {
           <Route
             exact
             path="/new/"
-            render={routeProps => (
-              <BlogForm addPost={this.addPost} {...routeProps} />
-            )}
+            render={routeProps => <BlogFormContainer {...routeProps} />}
           />
 
           <Route
@@ -95,9 +92,10 @@ class App extends Component {
               // );
               return (
                 <BlogDetailsContainer
-                  {...routeProps}
-                  id={routeProps.match.params.id}
+                  // id={routeProps.match.params.id}
                   key={uuid()}
+                  postId={routeProps.match.params.id}
+                  {...routeProps}
                 />
               );
             }}

@@ -4,19 +4,20 @@ import CommentForm from './CommentForm';
 
 class CommentList extends Component {
   render() {
+    console.log(this.props);
     if (this.props.comments) {
       return (
         <div className="CommentList">
           <hr />
           <h4>Comments</h4>
           <ul>
-            {this.props.comments.map(comment => {
+            {Object.keys(this.props.comments).map(comment => {
               return (
                 <li>
                   <Comment
-                    text={comment.text}
-                    commentId={comment.id}
-                    postId={this.props.id}
+                    text={this.props.comments[comment].text}
+                    commentId={comment}
+                    postId={this.props.postId}
                     deleteComment={this.props.deleteComment}
                   />
                 </li>
@@ -26,7 +27,7 @@ class CommentList extends Component {
           <CommentForm
             addComment={this.props.addComment}
             deleteComment={this.props.deleteComment}
-            id={this.props.id}
+            postId={this.props.postId}
           />
         </div>
       );
@@ -38,7 +39,7 @@ class CommentList extends Component {
           <CommentForm
             addComment={this.props.addComment}
             deleteComment={this.props.deleteComment}
-            id={this.props.id}
+            postId={this.props.postId}
           />
         </div>
       );
