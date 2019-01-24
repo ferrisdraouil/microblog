@@ -3,10 +3,6 @@ import Comment from './Comment';
 import CommentForm from './CommentForm';
 
 class CommentList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     if (this.props.comments) {
       return (

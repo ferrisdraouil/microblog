@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 
 class BlogCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <section>

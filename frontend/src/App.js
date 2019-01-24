@@ -19,6 +19,7 @@ class App extends Component {
     this.addComment = this.addComment.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
   }
+
   addPost(postObj) {
     postObj.id = uuid();
     let posts = [...this.state.posts, postObj];
@@ -26,9 +27,7 @@ class App extends Component {
   }
 
   removePost(id) {
-    let allPosts = [...this.state.posts];
-    let newPosts = allPosts.filter(post => post.id !== id);
-    this.setState({ posts: newPosts });
+    this.setState({ posts: this.state.posts.filter(post => post.id !== id) });
   }
 
   handleEdit(obj, id) {
@@ -44,12 +43,8 @@ class App extends Component {
   }
 
   addComment(comment, postId) {
-    console.log('POST ID', postId);
     let allPosts = [...this.state.posts];
     let postIdx = allPosts.findIndex(post => post.id === postId);
-
-    console.log('ALL POSTS', allPosts);
-    console.log('POST IDX', postIdx);
 
     if (allPosts[postIdx].comments) {
       let newComments = [...allPosts[postIdx].comments];
