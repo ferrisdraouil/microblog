@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavBar from './Navbar';
-import HomePage from './HomePage';
-import BlogForm from './BlogForm';
-import BlogDetails from './BlogDetails';
+import HomePageContainer from './containers/HomePageContainer';
+import BlogForm from './components/BlogForm';
+import BlogDetails from './components/BlogDetails';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 
@@ -75,9 +75,7 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={routeProps => (
-              <HomePage posts={this.state.posts} {...routeProps} />
-            )}
+            render={routeProps => <HomePageContainer {...routeProps} />}
           />
           <Route
             exact

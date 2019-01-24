@@ -1,10 +1,10 @@
-import {
-  ADD_POST,
-  REMOVE_POST,
-  EDIT_POST,
-  ADD_COMMENT,
-  DELETE_COMMENT
-} from './actionTypes';
+// import {
+//   ADD_POST,
+//   REMOVE_POST,
+//   EDIT_POST,
+//   ADD_COMMENT,
+//   DELETE_COMMENT
+// } from './actionTypes';
 import uuid from 'uuid/v4';
 
 const DEFAULT_STATE = {
@@ -20,16 +20,16 @@ const DEFAULT_STATE = {
 
 function rootReducer(state = DEFAULT_STATE, action) {
   switch (action.type) {
-    case ADD_POST: {
-    }
-    case REMOVE_POST: {
-    }
-    case EDIT_POST: {
-    }
-    case ADD_COMMENT: {
-    }
-    case DELETE_COMMENT: {
-    }
+    // case ADD_POST: {
+    // }
+    // case REMOVE_POST: {
+    // }
+    // case EDIT_POST: {
+    // }
+    // case ADD_COMMENT: {
+    // }
+    // case DELETE_COMMENT: {
+    // }
     default:
       return state;
   }

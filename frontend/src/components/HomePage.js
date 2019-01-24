@@ -6,14 +6,14 @@ class HomePage extends Component {
   render() {
     return (
       <div className="HomePage">
-        {this.props.posts.length > 0 ? (
-          this.props.posts.map(p => (
+        {Object.keys(this.props.posts).length > 0 ? (
+          Object.keys(this.props.posts).map(postId => (
             <BlogCard
               key={uuid()}
-              title={p.title}
-              body={p.body}
-              description={p.description}
-              id={p.id}
+              title={this.props.posts[postId].title}
+              body={this.props.posts[postId].body}
+              description={this.props.posts[postId].description}
+              id={postId}
             />
           ))
         ) : (
