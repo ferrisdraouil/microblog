@@ -28,15 +28,15 @@ function rootReducer(state = DEFAULT_STATE, action) {
     }
     case REMOVE_POST: {
       let postId = action.payload;
-      let newPosts = JSON.parse(JSON.stringify(state.posts));
-      delete newPosts[postId];
-      return { posts: newPosts };
+      let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      delete copiedPosts[postId];
+      return { posts: copiedPosts };
     }
     case EDIT_POST: {
       let { postId, postObj } = action.payload;
-      let newPosts = JSON.parse(JSON.stringify(state.posts));
-      newPosts[postId] = postObj;
-      return { posts: newPosts };
+      let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      copiedPosts[postId] = postObj;
+      return { posts: copiedPosts };
     }
     case ADD_COMMENT: {
       let { commentObj, postId } = action.payload;
