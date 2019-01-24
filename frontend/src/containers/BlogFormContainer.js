@@ -4,10 +4,6 @@ import { editPost, addPost } from '../actions';
 import { connect } from 'react-redux';
 
 class BlogFormContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     return (
       <div className="BlogFormContainer">
@@ -17,11 +13,11 @@ class BlogFormContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { posts: state.posts };
-}
+// function mapStateToProps(state) {
+//   return { posts: state.posts };
+// }
 
 export default connect(
-  mapStateToProps,
+  null,
   { editPost, addPost }
 )(BlogFormContainer);
