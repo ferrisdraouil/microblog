@@ -6,6 +6,7 @@ import BlogForm from './components/BlogForm';
 import BlogDetails from './components/BlogDetails';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import uuid from 'uuid';
+import BlogDetailsContainer from './containers/BlogDetailsContainer';
 
 class App extends Component {
   constructor(props) {
@@ -89,22 +90,14 @@ class App extends Component {
             exact
             path="/:id"
             render={routeProps => {
-              let post = this.state.posts.find(
-                post => post.id === routeProps.match.params.id
-              );
+              // let post = this.state.posts.find(
+              //   post => post.id === routeProps.match.params.id
+              // );
               return (
-                <BlogDetails
+                <BlogDetailsContainer
                   {...routeProps}
-                  title={post.title}
-                  body={post.body}
-                  description={post.description}
-                  id={post.id}
+                  id={routeProps.match.params.id}
                   key={uuid()}
-                  comments={post.comments}
-                  remove={this.removePost}
-                  handleEdit={this.handleEdit}
-                  addComment={this.addComment}
-                  deleteComment={this.deleteComment}
                 />
               );
             }}

@@ -4,7 +4,6 @@ import HomePage from '../components/HomePage';
 
 class HomePageContainer extends Component {
   render() {
-    console.log('HomePageContainer props? ', this.props);
     return <HomePage {...this.props} />;
   }
 }
