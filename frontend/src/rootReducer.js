@@ -7,6 +7,7 @@ import {
   LOAD_ALL_POSTS
 } from './actionTypes';
 import uuid from 'uuid/v4';
+import _ from 'lodash';
 
 const DEFAULT_STATE = {
   posts: {
@@ -23,7 +24,8 @@ function rootReducer(state = DEFAULT_STATE, action) {
   switch (action.type) {
     case ADD_POST: {
       let newPost = action.payload;
-      let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      // let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      let copiedPosts = _.cloneDeep(state.posts);
       copiedPosts[uuid()] = newPost;
       return { posts: copiedPosts };
     }
@@ -33,25 +35,25 @@ function rootReducer(state = DEFAULT_STATE, action) {
     }
     case REMOVE_POST: {
       let postId = action.payload;
-      let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      let copiedPosts = _.cloneDeep(state.posts);
       delete copiedPosts[postId];
       return { posts: copiedPosts };
     }
     case EDIT_POST: {
       let { postId, postObj } = action.payload;
-      let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      let copiedPosts = _.cloneDeep(state.posts);
       copiedPosts[postId] = postObj;
       return { posts: copiedPosts };
     }
     case ADD_COMMENT: {
       let { commentObj, postId } = action.payload;
-      let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      let copiedPosts = _.cloneDeep(state.posts);
       copiedPosts[postId].comments[uuid()] = { text: commentObj.comment };
       return { posts: copiedPosts };
     }
     case DELETE_COMMENT: {
       let { commentId, postId } = action.payload;
-      let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      let copiedPosts = _.cloneDeep(state.posts);
       delete copiedPosts[postId].comments[commentId];
       return { posts: copiedPosts };
     }
