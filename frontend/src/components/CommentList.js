@@ -4,7 +4,6 @@ import CommentForm from './CommentForm';
 
 class CommentList extends Component {
   render() {
-    console.log(this.props);
     if (this.props.comments) {
       return (
         <div className="CommentList">

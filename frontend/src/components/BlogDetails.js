@@ -13,6 +13,10 @@ class BlogDetails extends Component {
     this.handleRemove = this.handleRemove.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getOnePost(this.props.postId);
+  }
+
   handleRemove() {
     this.props.removePost(this.props.postId);
     this.props.history.push('/');
@@ -26,6 +30,10 @@ class BlogDetails extends Component {
   }
 
   render() {
+    // debugger;
+    if (!this.props.post) {
+      return <h3>Loading</h3>;
+    }
     if (this.state.isEdited) {
       return (
         <BlogFormContainer
@@ -33,9 +41,11 @@ class BlogDetails extends Component {
           title={this.props.post.title}
           description={this.props.post.description}
           body={this.props.post.body}
+          editPost={this.props.editPost}
         />
       );
     } else {
+      console.log(this.props);
       return (
         <section>
           <Card>
@@ -44,10 +54,10 @@ class BlogDetails extends Component {
                 {this.props.post.title}
                 <span>
                   <button onClick={this.handleRemove}>
-                    <i class="fas fa-trash-alt" />
+                    <i className="fas fa-trash-alt" />
                   </button>
                   <button onClick={this.toggleEdit}>
-                    <i class="far fa-edit" />
+                    <i className="far fa-edit" />
                   </button>
                 </span>
               </CardTitle>

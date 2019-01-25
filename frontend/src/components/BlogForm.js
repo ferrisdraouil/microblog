@@ -27,7 +27,8 @@ class BlogForm extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     if (!this.props.postId) {
-      this.props.addPost(this.state);
+      // changed from the redux function to the db function
+      this.props.addNewPost(this.state);
     } else {
       this.props.editPost(this.state, this.props.postId);
     }

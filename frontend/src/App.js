@@ -6,6 +6,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 import BlogDetailsContainer from './containers/BlogDetailsContainer';
 import BlogFormContainer from './containers/BlogFormContainer';
+import { getOnePost } from './actions';
 
 class App extends Component {
   constructor(props) {
@@ -72,6 +73,8 @@ class App extends Component {
   }
 
   render() {
+    console.log(' APP RERENDER');
+
     return (
       <div className="App">
         <NavBar />
@@ -84,7 +87,12 @@ class App extends Component {
           <Route
             exact
             path="/new/"
-            render={routeProps => <BlogFormContainer {...routeProps} />}
+            render={routeProps => (
+              <BlogFormContainer
+                {...routeProps}
+                addNewPost={this.props.addNewPost}
+              />
+            )}
           />
 
           <Route
@@ -99,6 +107,7 @@ class App extends Component {
                   // id={routeProps.match.params.id}
                   key={uuid()}
                   postId={routeProps.match.params.id}
+                  editPost={this.props.editPost}
                   {...routeProps}
                 />
               );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../components/HomePage';
-import { getAllPosts } from '../actions';
+import { addNewPost } from '../actions';
 
 class HomePageContainer extends Component {
   render() {

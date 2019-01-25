@@ -4,7 +4,9 @@ import {
   EDIT_POST,
   ADD_COMMENT,
   DELETE_COMMENT,
-  LOAD_ALL_POSTS
+  LOAD_ALL_POSTS,
+  SHOW_ERR,
+  GOT_ONE_POST
 } from './actionTypes';
 import uuid from 'uuid/v4';
 import _ from 'lodash';
@@ -17,7 +19,8 @@ const DEFAULT_STATE = {
       description: 'thebest',
       comments: { [uuid()]: { text: 'commentText' } }
     }
-  }
+  },
+  error: false
 };
 
 function rootReducer(state = DEFAULT_STATE, action) {
@@ -41,15 +44,15 @@ function rootReducer(state = DEFAULT_STATE, action) {
       return { posts: copiedPosts };
     }
     case EDIT_POST: {
-      let { postId, postObj } = action.payload;
+      let { postObj } = action.payload;
       let copiedPosts = _.cloneDeep(state.posts);
-      copiedPosts[postId] = postObj;
+      let { id, ...rest } = postObj;
+      copiedPosts[postObj.id] = rest;
       return { posts: copiedPosts };
     }
     case ADD_COMMENT: {
       let { commentObj, postId } = action.payload;
       let copiedPosts = _.cloneDeep(state.posts);
-      console.log('COPIED POSTS', copiedPosts);
       copiedPosts[postId].comments[uuid()] = { text: commentObj.comment };
       return { posts: copiedPosts };
     }
@@ -58,6 +61,16 @@ function rootReducer(state = DEFAULT_STATE, action) {
       let copiedPosts = _.cloneDeep(state.posts);
       delete copiedPosts[postId].comments[commentId];
       return { posts: copiedPosts };
+    }
+    case GOT_ONE_POST: {
+      let post = action.payload;
+      let copiedPosts = _.cloneDeep(state.posts);
+      copiedPosts[post.id] = post;
+      console.log('reducer', post);
+      return { posts: copiedPosts };
+    }
+    case SHOW_ERR: {
+      return { ...state, error: true };
     }
     default:
       return state;
