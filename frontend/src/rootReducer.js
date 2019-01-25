@@ -3,7 +3,8 @@ import {
   REMOVE_POST,
   EDIT_POST,
   ADD_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  LOAD_ALL_POSTS
 } from './actionTypes';
 import uuid from 'uuid/v4';
 
@@ -25,6 +26,10 @@ function rootReducer(state = DEFAULT_STATE, action) {
       let copiedPosts = JSON.parse(JSON.stringify(state.posts));
       copiedPosts[uuid()] = newPost;
       return { posts: copiedPosts };
+    }
+    case LOAD_ALL_POSTS: {
+      let allPosts = action.payload;
+      return { posts: allPosts };
     }
     case REMOVE_POST: {
       let postId = action.payload;

@@ -3,8 +3,25 @@ import {
   REMOVE_POST,
   EDIT_POST,
   ADD_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  LOAD_ALL_POSTS
 } from './actionTypes';
+import axios from 'axios';
+
+export function getAllPosts() {
+  return async function(dispatch) {
+    const res = await axios.get('http://localhost:5000/api/posts');
+    const { posts } = res.data;
+    const postsObj = posts.reduce((prev, cur) => {
+      return (prev[cur.id] = { ...cur });
+    }, {});
+    dispatch(gotAllPosts(postsObj));
+  };
+}
+
+function gotAllPosts(posts) {
+  return { type: LOAD_ALL_POSTS, payload: posts };
+}
 
 export function addPost(postObj) {
   return {

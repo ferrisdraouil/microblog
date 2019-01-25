@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import HomePage from '../components/HomePage';
+import App from '../App';
 import { getAllPosts } from '../actions';
 
-class HomePageContainer extends Component {
+class AppContainer extends Component {
   render() {
-    return <HomePage {...this.props} />;
+    return <App {...this.props} />;
   }
 }
 
@@ -15,4 +15,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(HomePageContainer);
+export default connect(
+  mapStateToProps,
+  { getAllPosts }
+)(AppContainer);

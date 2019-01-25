@@ -20,6 +20,10 @@ class App extends Component {
     this.deleteComment = this.deleteComment.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getAllPosts();
+  }
+
   addPost(postObj) {
     postObj.id = uuid();
     let posts = [...this.state.posts, postObj];
