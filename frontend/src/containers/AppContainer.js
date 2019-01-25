@@ -10,13 +10,7 @@ class AppContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    posts: state.posts
-  };
-}
-
 export default connect(
-  mapStateToProps,
+  null,
   { getAllPosts, addNewPost, editPost }
 )(AppContainer);
