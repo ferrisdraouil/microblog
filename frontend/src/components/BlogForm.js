@@ -27,7 +27,6 @@ class BlogForm extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     if (!this.props.postId) {
-      // changed from the redux function to the db function
       this.props.addNewPost(this.state);
     } else {
       this.props.editPost(this.state, this.props.postId);
@@ -49,6 +48,8 @@ class BlogForm extends Component {
   }
 
   render() {
+    let { body, description, title } = this.state;
+
     return (
       <div className="BlogForm">
         <section>
@@ -62,7 +63,7 @@ class BlogForm extends Component {
                   <Input
                     name="title"
                     id="title"
-                    defaultValue={this.state.title}
+                    defaultValue={title}
                     onChange={this.handleChange}
                     required
                   />
@@ -73,7 +74,7 @@ class BlogForm extends Component {
                   <Input
                     name="description"
                     id="description"
-                    defaultValue={this.state.description}
+                    defaultValue={description}
                     onChange={this.handleChange}
                     required
                   />
@@ -84,7 +85,7 @@ class BlogForm extends Component {
                   <Input
                     name="body"
                     id="body"
-                    defaultValue={this.state.body}
+                    defaultValue={body}
                     onChange={this.handleChange}
                     required
                   />

@@ -13,10 +13,6 @@ class BlogFormContainer extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return { posts: state.posts };
-// }
-
 export default connect(
   null,
   { editPost, addPost }

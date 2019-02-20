@@ -60,6 +60,18 @@ export function addPost(postObj) {
     payload: postObj
   };
 }
+
+export function deletePost(postId) {
+  return async function(dispatch) {
+    try {
+      await axios.delete(`${POSTS_URL}/${postId}`);
+      dispatch(removePost(postId));
+    } catch (error) {
+      const errorMessage = error.response.data;
+      dispatch(showErr(errorMessage));
+    }
+  };
+}
 export function removePost(postId) {
   return {
     type: REMOVE_POST,
@@ -77,7 +89,6 @@ export function editPost(postObj, postId) {
         body,
         description
       });
-      console.log('putres', res);
       dispatch(editedPost(res.data));
     } catch (error) {
       const errorMessage = error.response.data;

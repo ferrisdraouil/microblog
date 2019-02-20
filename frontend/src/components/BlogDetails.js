@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CardBody, Card, CardText, CardTitle } from 'reactstrap';
+import { CardBody, Card, CardText, CardTitle, Button } from 'reactstrap';
 import BlogFormContainer from '../containers/BlogFormContainer';
 import CommentList from './CommentList';
 
@@ -18,30 +18,31 @@ class BlogDetails extends Component {
   }
 
   handleRemove() {
-    this.props.removePost(this.props.postId);
+    this.props.deletePost(this.props.postId);
     this.props.history.push('/');
   }
 
   toggleEdit() {
-    // this.props.handleEdit(this.state);
     this.setState({
       isEdited: true
     });
   }
 
   render() {
-    // debugger;
-    if (!this.props.post) {
+    let { title, description, body, comments } = this.props.post;
+    let { post, postId, editPost, addComment, deleteComment } = this.props;
+
+    if (!post) {
       return <h3>Loading</h3>;
     }
     if (this.state.isEdited) {
       return (
         <BlogFormContainer
-          postId={this.props.postId}
-          title={this.props.post.title}
-          description={this.props.post.description}
-          body={this.props.post.body}
-          editPost={this.props.editPost}
+          postId={postId}
+          title={title}
+          description={description}
+          body={body}
+          editPost={editPost}
         />
       );
     } else {
@@ -51,27 +52,24 @@ class BlogDetails extends Component {
           <Card>
             <CardBody>
               <CardTitle className="font-weight-bold text-center">
-                {this.props.post.title}
-                <span>
-                  <button onClick={this.handleRemove}>
-                    <i className="fas fa-trash-alt" />
-                  </button>
-                  <button onClick={this.toggleEdit}>
-                    <i className="far fa-edit" />
-                  </button>
-                </span>
+                {title}
               </CardTitle>
-              <CardText className="font-italic">
-                {this.props.post.description}
-              </CardText>
-              <CardText>{this.props.post.body}</CardText>
+              <CardText className="font-italic">{description}</CardText>
+
+              <CardText>{body}</CardText>
+              <Button onClick={this.handleRemove} className="mr-1">
+                <i className="fas fa-trash-alt" />
+              </Button>
+              <Button onClick={this.toggleEdit} className="ml-1">
+                <i className="far fa-edit" />
+              </Button>
             </CardBody>
           </Card>
           <CommentList
-            postId={this.props.postId}
-            addComment={this.props.addComment}
-            deleteComment={this.props.deleteComment}
-            comments={this.props.post.comments}
+            postId={postId}
+            addComment={addComment}
+            deleteComment={deleteComment}
+            comments={comments}
           />
         </section>
       );

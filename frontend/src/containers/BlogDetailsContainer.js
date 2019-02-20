@@ -2,21 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BlogDetails from '../components/BlogDetails';
 import {
-  removePost,
   editPost,
   addComment,
   deleteComment,
-  getOnePost
+  getOnePost,
+  deletePost
 } from '../actions';
 
 class BlogDetailsContainer extends Component {
   render() {
+    let { post, postId, editPost, getOnePost, deletePost } = this.props;
+
     return (
       <BlogDetails
-        post={this.props.post}
-        postId={this.props.postId}
-        editPost={this.props.editPost}
-        getOnePost={this.props.getOnePost}
+        {...this.props}
+        post={post}
+        postId={postId}
+        editPost={editPost}
+        getOnePost={getOnePost}
+        deletePost={deletePost}
       />
     );
   }
@@ -30,5 +34,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { removePost, editPost, deleteComment, addComment, getOnePost }
+  { deletePost, editPost, deleteComment, addComment, getOnePost }
 )(BlogDetailsContainer);
