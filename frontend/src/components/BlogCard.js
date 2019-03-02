@@ -8,7 +8,16 @@ class BlogCard extends Component {
 
     return (
       <section>
-        <Card fluid="true" style={{ margin: '2em' }}>
+        <Card
+          fluid="true"
+          style={{
+            margin: '2em',
+            border: 'blue',
+            boxShadow: '5px 10px',
+            borderStyle: 'groove',
+            // width: '100%'
+          }}
+        >
           <CardBody>
             <CardTitle className="font-weight-bold text-center">
               <Link to={`${id}`}>{title}</Link>

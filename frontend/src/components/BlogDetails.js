@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './BlogDetails.css';
 import { CardBody, Card, CardText, CardTitle, Button } from 'reactstrap';
 import BlogFormContainer from '../containers/BlogFormContainer';
 import CommentList from './CommentList';
@@ -17,6 +18,10 @@ class BlogDetails extends Component {
     this.props.getOnePost(this.props.postId);
   }
 
+  // componentDidUpdate() {
+  //   this.props.getOnePost(this.props.postId);
+  // }
+
   handleRemove() {
     this.props.deletePost(this.props.postId);
     this.props.history.push('/');
@@ -29,12 +34,14 @@ class BlogDetails extends Component {
   }
 
   render() {
-    let { title, description, body, comments } = this.props.post;
     let { post, postId, editPost, addComment, deleteComment } = this.props;
 
     if (!post) {
       return <h3>Loading</h3>;
     }
+
+    let { title, description, body, comments } = this.props.post;
+
     if (this.state.isEdited) {
       return (
         <BlogFormContainer
@@ -46,7 +53,6 @@ class BlogDetails extends Component {
         />
       );
     } else {
-      console.log(this.props);
       return (
         <section>
           <Card>

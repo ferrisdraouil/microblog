@@ -13,6 +13,8 @@ class BlogDetailsContainer extends Component {
   render() {
     let { post, postId, editPost, getOnePost, deletePost } = this.props;
 
+    console.log('CONTAINER RERENDER')
+
     return (
       <BlogDetails
         {...this.props}

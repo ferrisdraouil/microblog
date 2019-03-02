@@ -21,12 +21,13 @@ export function getAllPosts() {
     try {
       const res = await axios.get(POSTS_URL);
       const posts = res.data;
-      console.log('posts', posts);
+      console.log('GET ALL POSTS RES', posts)
 
       const postsObj = posts.reduce((accumulator, post) => {
         const { id, ...rest } = post;
+
         accumulator[post.id] = rest;
-        accumulator[post.id].comments = {};
+        // accumulator[post.id].comments = {};
         return accumulator;
       }, {});
       dispatch(gotAllPosts(postsObj));
@@ -121,8 +122,8 @@ export function deleteComment(commentId, postId) {
 export function getOnePost(postId) {
   return async function(dispatch) {
     try {
-      console.log('get one post rerendered');
       const res = await axios.get(`${POSTS_URL}/${postId}`);
+      // console.log('GOT ONE POST RES', res.data)
       dispatch(gotOnePost(res.data));
     } catch (error) {
       const errorMessage = error.response.data;

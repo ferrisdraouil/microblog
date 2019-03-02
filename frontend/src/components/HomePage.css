@@ -1,0 +1,24 @@
+.blogCard {
+  display: flex;
+  align-items: center;
+  align-content: stretch;
+  justify-content: space-evenly;
+  flex-flow: row wrap;
+}
+
+.welcome {
+  animation: text-shadow-drop-center 0.6s both;
+}
+
+.borderColumn {
+  background-color: lightgrey
+}
+
+@keyframes text-shadow-drop-center {
+  0% {
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+  }
+}

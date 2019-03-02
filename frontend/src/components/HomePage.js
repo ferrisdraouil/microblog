@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import './HomePage.css';
 import uuid from 'uuid';
 import BlogCard from './BlogCard';
 import { Spinner, Row, Col, Jumbotron, Container } from 'reactstrap';
 
 class HomePage extends Component {
+  componentDidMount() {
+    this.props.getAllPosts()
+  }
   render() {
     let { posts } = this.props;
     if (!posts) {
@@ -17,33 +21,31 @@ class HomePage extends Component {
     }
     return (
       <div className="HomePage">
-        <Jumbotron fluid>
+        <Jumbotron fluid style={{marginBottom:'0%'}}>
           <Container fluid>
-            <h1 className="display-4">Welcome to Microblog</h1>
+            <h1 className="display-4 welcome">Welcome to Microblog</h1>
           </Container>
         </Jumbotron>
+
         <Row>
-          <Col
-            sm="12"
-            md={{ size: 6, offset: 3 }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              alignContent: 'stretch',
-              justifyContent: 'space-around',
-              flexFlow: 'row wrap'
-            }}
-          >
+          <Col md={{ size: 4 }} className='borderColumn'/>
+
+          <Col md={{ size: 4 }}>
             {Object.keys(posts).map(postId => (
-              <BlogCard
-                key={uuid()}
-                title={posts[postId].title}
-                body={posts[postId].body}
-                description={posts[postId].description}
-                id={postId}
-              />
+              <Row>
+                <Col sm="12" md={{ size: 6, offset: 3 }} style={{marginTop:'5%'}}className="blogCard">
+                  <BlogCard
+                    key={uuid()}
+                    title={posts[postId].title}
+                    body={posts[postId].body}
+                    description={posts[postId].description}
+                    id={postId}
+                  />
+                </Col>
+              </Row>
             ))}
           </Col>
+          <Col md={{ size: 4 }} className='borderColumn'/>
         </Row>
       </div>
     );

@@ -21,9 +21,9 @@ class App extends Component {
     this.deleteComment = this.deleteComment.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getAllPosts();
-  }
+  // componentDidMount() {
+  //   this.props.getAllPosts();
+  // }
 
   addPost(postObj) {
     postObj.id = uuid();
@@ -73,8 +73,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(' APP RERENDER');
-
     return (
       <div className="App">
         <NavBar />

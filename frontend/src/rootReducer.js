@@ -40,10 +40,7 @@ function rootReducer(state = DEFAULT_STATE, action) {
     case REMOVE_POST: {
       let postId = action.payload;
       let copiedPosts = _.cloneDeep(state.posts);
-      console.log('BEFORE DELETE', copiedPosts);
-      console.log('POST ID', postId);
       delete copiedPosts[postId];
-      console.log('AFTER DELETE', copiedPosts);
 
       return { posts: copiedPosts };
     }
