@@ -6,7 +6,8 @@ import {
   DELETE_COMMENT,
   LOAD_ALL_POSTS,
   SHOW_ERR,
-  GOT_ONE_POST
+  GOT_ONE_POST,
+  VOTE
 } from './actionTypes';
 import axios from 'axios';
 
@@ -55,7 +56,7 @@ export function addNewPost(postObj) {
   };
 }
 
-export function addPost(postObj) {
+function addPost(postObj) {
   return {
     type: ADD_POST,
     payload: postObj
@@ -73,7 +74,7 @@ export function deletePost(postId) {
     }
   };
 }
-export function removePost(postId) {
+function removePost(postId) {
   return {
     type: REMOVE_POST,
     payload: postId
@@ -82,7 +83,6 @@ export function removePost(postId) {
 
 export function editPost(postObj, postId) {
   return async function(dispatch) {
-    // console.log
     try {
       let { body, description, title } = postObj;
       const res = await axios.put(`${POSTS_URL}/${postId}`, {
@@ -98,21 +98,45 @@ export function editPost(postObj, postId) {
   };
 }
 
-export function editedPost(postObj, postId) {
+function editedPost(postObj, postId) {
   return {
     type: EDIT_POST,
     payload: { postObj, postId }
   };
 }
 
-export function addComment(commentObj, postId) {
+export function addCommentToAPI(commentObj, postId) {
+  return async function(dispatch) {
+    try {
+      const { comment } = commentObj
+      console.log('COMMENT OBJ', commentObj)
+      const res = await axios.post(`${POSTS_URL}/${postId}/comments/`, { text: comment });
+      return dispatch(addComment(postId, res.data))
+    } catch (error) {
+      dispatch(showErr(error))
+    }
+  }
+}
+
+function addComment(commentObj, postId) {
   return {
     type: ADD_COMMENT,
     payload: { commentObj, postId }
   };
 }
 
-export function deleteComment(commentId, postId) {
+export function deleteCommentFromAPI(commentId, postId) {
+  return async function(dispatch) {
+    try {
+      await axios.delete(`${POSTS_URL}/${postId}/comments/${commentId}`);
+      return dispatch(deleteComment(postId, commentId));
+    } catch (error) {
+      dispatch(showErr(error))
+    }
+  }
+}
+
+function deleteComment(commentId, postId) {
   return {
     type: DELETE_COMMENT,
     payload: { commentId, postId }
@@ -136,5 +160,20 @@ function gotOnePost(posts) {
   return {
     type: GOT_ONE_POST,
     payload: posts
+  };
+}
+
+export function sendVoteToAPI(id, direction) {
+  return async function (dispatch) {
+    const response = await axios.post(`${POSTS_URL}/${id}/vote/${direction}`);
+    return dispatch(vote(id, response.data.votes));
+  };
+}
+
+function vote(postId, votes) {
+  return {
+    type: VOTE,
+    postId: postId,
+    votes: votes,
   };
 }

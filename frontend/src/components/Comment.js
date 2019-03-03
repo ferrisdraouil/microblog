@@ -15,7 +15,7 @@ class Comment extends Component {
       <div className="Comment">
         <span>
           <button onClick={this.handleClick}>
-            <i class="fas fa-trash-alt" />
+            <i className="fas fa-trash-alt" />
           </button>
           {this.props.text}
         </span>

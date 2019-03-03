@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import BlogDetails from '../components/BlogDetails';
 import {
   editPost,
-  addComment,
-  deleteComment,
+  addCommentToAPI,
+  deleteCommentFromAPI,
   getOnePost,
   deletePost
 } from '../actions';
@@ -36,5 +36,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { deletePost, editPost, deleteComment, addComment, getOnePost }
+  { deletePost, editPost, deleteCommentFromAPI, addCommentToAPI, getOnePost }
 )(BlogDetailsContainer);

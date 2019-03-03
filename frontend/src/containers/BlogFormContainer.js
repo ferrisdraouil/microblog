@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BlogForm from '../components/BlogForm';
-import { editPost, addPost } from '../actions';
+import { editPost, addNewPost } from '../actions';
 import { connect } from 'react-redux';
 
 class BlogFormContainer extends Component {
@@ -15,5 +15,5 @@ class BlogFormContainer extends Component {
 
 export default connect(
   null,
-  { editPost, addPost }
+  { editPost, addNewPost }
 )(BlogFormContainer);

@@ -34,7 +34,7 @@ class BlogDetails extends Component {
   }
 
   render() {
-    let { post, postId, editPost, addComment, deleteComment } = this.props;
+    let { post, postId, editPost, addCommentToAPI, deleteCommentFromAPI } = this.props;
 
     if (!post) {
       return <h3>Loading</h3>;
@@ -73,8 +73,8 @@ class BlogDetails extends Component {
           </Card>
           <CommentList
             postId={postId}
-            addComment={addComment}
-            deleteComment={deleteComment}
+            addComment={addCommentToAPI}
+            deleteComment={deleteCommentFromAPI}
             comments={comments}
           />
         </section>

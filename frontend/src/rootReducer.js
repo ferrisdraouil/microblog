@@ -26,11 +26,10 @@ const DEFAULT_STATE = {
 function rootReducer(state = DEFAULT_STATE, action) {
   switch (action.type) {
     case ADD_POST: {
-      let newPost = action.payload;
-      newPost.comments = {};
-      // let copiedPosts = JSON.parse(JSON.stringify(state.posts));
+      let { id, ...newPost } = action.payload;
+      newPost.comments = [];
       let copiedPosts = _.cloneDeep(state.posts);
-      copiedPosts[uuid()] = newPost;
+      copiedPosts[id] = newPost;
       return { posts: copiedPosts };
     }
     case LOAD_ALL_POSTS: {
@@ -54,13 +53,19 @@ function rootReducer(state = DEFAULT_STATE, action) {
     case ADD_COMMENT: {
       let { commentObj, postId } = action.payload;
       let copiedPosts = _.cloneDeep(state.posts);
-      copiedPosts[postId].comments[uuid()] = { text: commentObj.comment };
+      copiedPosts[postId].comments.push({
+        id: uuid(),
+        text: commentObj.comment
+      });
       return { posts: copiedPosts };
     }
     case DELETE_COMMENT: {
       let { commentId, postId } = action.payload;
       let copiedPosts = _.cloneDeep(state.posts);
-      delete copiedPosts[postId].comments[commentId];
+      let newComments = copiedPosts[postId].comments.filter(
+        comment => comment.id !== commentId
+      );
+      copiedPosts[postId].comments = newComments;
       return { posts: copiedPosts };
     }
     case GOT_ONE_POST: {
@@ -69,6 +74,11 @@ function rootReducer(state = DEFAULT_STATE, action) {
       copiedPosts[post.id] = post;
       return { posts: copiedPosts };
     }
+    case VOTE:
+      return {
+        ...state,
+        [action.postId]: { ...p, votes: action.votes }
+      };
     case SHOW_ERR: {
       return { ...state, error: true };
     }

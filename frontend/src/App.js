@@ -14,7 +14,7 @@ class App extends Component {
     this.state = {
       posts: []
     };
-    this.addPost = this.addPost.bind(this);
+    // this.addPost = this.addPost.bind(this);
     this.removePost = this.removePost.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.addComment = this.addComment.bind(this);
@@ -25,11 +25,11 @@ class App extends Component {
   //   this.props.getAllPosts();
   // }
 
-  addPost(postObj) {
-    postObj.id = uuid();
-    let posts = [...this.state.posts, postObj];
-    this.setState({ posts });
-  }
+  // addPost(postObj) {
+  //   postObj.id = uuid();
+  //   let posts = [...this.state.posts, postObj];
+  //   this.setState({ posts });
+  // }
 
   removePost(id) {
     this.setState({ posts: this.state.posts.filter(post => post.id !== id) });
@@ -48,8 +48,8 @@ class App extends Component {
   }
 
   addComment(comment, postId) {
-    let allPosts = [...this.state.posts];
-    let postIdx = allPosts.findIndex(post => post.id === postId);
+    let allPosts = JSON.parse(JSON.stringify(this.state.posts));
+    const postIdx = allPosts.findIndex(post => post.id === postId);
 
     if (allPosts[postIdx].comments) {
       let newComments = [...allPosts[postIdx].comments];
