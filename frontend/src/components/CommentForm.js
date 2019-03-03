@@ -24,7 +24,7 @@ class CommentForm extends Component {
     return (
       <div className="CommentForm">
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="comment">Comment</label>
+          <label htmlFor="comment" style={{marginRight:'0.5em'}}>Speak up!</label>
           <input name="comment" id="comment" onChange={this.handleChange} />
           <button>Add</button>
         </form>

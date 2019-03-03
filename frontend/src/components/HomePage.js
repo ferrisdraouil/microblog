@@ -8,6 +8,11 @@ class HomePage extends Component {
   componentDidMount() {
     this.props.getAllPosts();
   }
+
+  sendVote = (postId, direction) => {
+    this.props.sendVoteToAPI(postId, direction);
+  };
+
   render() {
     let { posts } = this.props;
     if (!posts) {
@@ -45,9 +50,21 @@ class HomePage extends Component {
                     body={posts[postId].body}
                     description={posts[postId].description}
                     id={postId}
+                    className="article"
                   />
-                  <i className="fas fa-thumbs-up text-success ml-2" />
-                  <i className="fas fa-thumbs-down text-danger ml-2" />
+                  <div className="voteBox">
+                    <i
+                      className="fas fa-thumbs-up text-success ml-2 voteIcon"
+                      onClick={() => this.sendVote(postId, 'up')}
+                    />
+                    <div>
+                      <b className="voteCount">{posts[postId].votes}</b>
+                    </div>
+                    <i
+                      className="fas fa-thumbs-down text-danger ml-2 voteIcon"
+                      onClick={() => this.sendVote(postId, 'down')}
+                    />
+                  </div>
                 </Col>
               </Row>
             ))}

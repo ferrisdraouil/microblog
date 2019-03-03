@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './CommentList.css'
 import uuid from 'uuid';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
@@ -8,12 +9,11 @@ class CommentList extends Component {
     let { comments, postId, deleteComment, addComment } = this.props;
 
     if (comments) {
-      console.log('COMMENTS 2', comments);
       return (
         <div className="CommentList">
           <hr />
-          <h4>Comments</h4>
-          <ul>
+          <h5>Comments</h5>
+          <ul style={{padding:'unset'}}>
             {comments.map(comment => {
               return (
                 <li key={uuid()}>

@@ -1,0 +1,12 @@
+.Comment {
+  display: flex;
+  justify-content: center
+}
+
+em {
+  padding-right: 1em
+}
+
+i {
+  border-left: 1em
+}

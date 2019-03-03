@@ -6,7 +6,6 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 import BlogDetailsContainer from './containers/BlogDetailsContainer';
 import BlogFormContainer from './containers/BlogFormContainer';
-import { getOnePost } from './actions';
 
 class App extends Component {
   constructor(props) {
@@ -14,22 +13,11 @@ class App extends Component {
     this.state = {
       posts: []
     };
-    // this.addPost = this.addPost.bind(this);
     this.removePost = this.removePost.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.addComment = this.addComment.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
   }
-
-  // componentDidMount() {
-  //   this.props.getAllPosts();
-  // }
-
-  // addPost(postObj) {
-  //   postObj.id = uuid();
-  //   let posts = [...this.state.posts, postObj];
-  //   this.setState({ posts });
-  // }
 
   removePost(id) {
     this.setState({ posts: this.state.posts.filter(post => post.id !== id) });
@@ -97,12 +85,8 @@ class App extends Component {
             exact
             path="/:id"
             render={routeProps => {
-              // let post = this.state.posts.find(
-              //   post => post.id === routeProps.match.params.id
-              // );
               return (
                 <BlogDetailsContainer
-                  // id={routeProps.match.params.id}
                   key={uuid()}
                   postId={routeProps.match.params.id}
                   editPost={this.props.editPost}

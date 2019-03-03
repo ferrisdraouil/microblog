@@ -34,7 +34,13 @@ class BlogDetails extends Component {
   }
 
   render() {
-    let { post, postId, editPost, addCommentToAPI, deleteCommentFromAPI } = this.props;
+    let {
+      post,
+      postId,
+      editPost,
+      addCommentToAPI,
+      deleteCommentFromAPI
+    } = this.props;
 
     if (!post) {
       return <h3>Loading</h3>;
@@ -70,13 +76,13 @@ class BlogDetails extends Component {
                 <i className="far fa-edit" />
               </Button>
             </CardBody>
+            <CommentList
+              postId={postId}
+              addComment={addCommentToAPI}
+              deleteComment={deleteCommentFromAPI}
+              comments={comments}
+            />
           </Card>
-          <CommentList
-            postId={postId}
-            addComment={addCommentToAPI}
-            deleteComment={deleteCommentFromAPI}
-            comments={comments}
-          />
         </section>
       );
     }

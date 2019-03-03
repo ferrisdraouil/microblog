@@ -6,7 +6,8 @@ import {
   DELETE_COMMENT,
   LOAD_ALL_POSTS,
   SHOW_ERR,
-  GOT_ONE_POST
+  GOT_ONE_POST, 
+  VOTE
 } from './actionTypes';
 import uuid from 'uuid/v4';
 import _ from 'lodash';
@@ -77,7 +78,7 @@ function rootReducer(state = DEFAULT_STATE, action) {
     case VOTE:
       return {
         ...state,
-        [action.postId]: { ...p, votes: action.votes }
+        [action.postId]: { ...state[action.postId], votes: action.votes }
       };
     case SHOW_ERR: {
       return { ...state, error: true };
