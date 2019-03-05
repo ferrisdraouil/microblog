@@ -6,7 +6,7 @@ import {
   DELETE_COMMENT,
   LOAD_ALL_POSTS,
   SHOW_ERR,
-  GOT_ONE_POST, 
+  GOT_ONE_POST,
   VOTE
 } from './actionTypes';
 import uuid from 'uuid/v4';
@@ -55,8 +55,8 @@ function rootReducer(state = DEFAULT_STATE, action) {
       let { commentObj, postId } = action.payload;
       let copiedPosts = _.cloneDeep(state.posts);
       copiedPosts[postId].comments.push({
-        id: uuid(),
-        text: commentObj.comment
+        id: commentObj.id,
+        text: commentObj.text
       });
       return { posts: copiedPosts };
     }
@@ -75,11 +75,13 @@ function rootReducer(state = DEFAULT_STATE, action) {
       copiedPosts[post.id] = post;
       return { posts: copiedPosts };
     }
-    case VOTE:
-      return {
-        ...state,
-        [action.postId]: { ...state[action.postId], votes: action.votes }
-      };
+    case VOTE: {
+      const { postId, votes } = action;
+      let copiedPosts = _.cloneDeep(state.posts);
+      copiedPosts[postId].votes = votes;
+      return { posts: copiedPosts };
+    }
+
     case SHOW_ERR: {
       return { ...state, error: true };
     }

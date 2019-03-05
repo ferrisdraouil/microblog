@@ -28,7 +28,7 @@ class HomePage extends Component {
       <div className="HomePage">
         <Jumbotron fluid style={{ marginBottom: '0%' }}>
           <Container fluid>
-            <h1 className="display-4 welcome">Welcome to Ferrisblog</h1>
+            <h1 className="display-4 welcome">Welcome to Microblog</h1>
           </Container>
         </Jumbotron>
 
@@ -45,12 +45,12 @@ class HomePage extends Component {
                   className="blogCard"
                 >
                   <BlogCard
+                    className="article"
                     key={uuid()}
                     title={posts[postId].title}
                     body={posts[postId].body}
                     description={posts[postId].description}
                     id={postId}
-                    className="article"
                   />
                   <div className="voteBox">
                     <i

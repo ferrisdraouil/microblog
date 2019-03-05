@@ -14,7 +14,7 @@ import axios from 'axios';
 const POSTS_URL = 'http://localhost:5000/api/posts';
 
 export function showErr(msg) {
-  return { type: 'SHOW_ERR', msg };
+  return { type: SHOW_ERR, msg };
 }
 
 export function getAllPosts() {
@@ -109,9 +109,8 @@ export function addCommentToAPI(commentObj, postId) {
   return async function(dispatch) {
     try {
       const { comment } = commentObj
-      console.log('COMMENT OBJ', commentObj)
       const res = await axios.post(`${POSTS_URL}/${postId}/comments/`, { text: comment });
-      return dispatch(addComment(postId, res.data))
+      return dispatch(addComment(res.data, postId))
     } catch (error) {
       dispatch(showErr(error))
     }
@@ -119,6 +118,8 @@ export function addCommentToAPI(commentObj, postId) {
 }
 
 function addComment(commentObj, postId) {
+  console.log('commentobj', commentObj)
+  console.log('postid', postId)
   return {
     type: ADD_COMMENT,
     payload: { commentObj, postId }
@@ -128,8 +129,10 @@ function addComment(commentObj, postId) {
 export function deleteCommentFromAPI(commentId, postId) {
   return async function(dispatch) {
     try {
+      console.log('commentId', commentId)
+      console.log('postId', postId)
       await axios.delete(`${POSTS_URL}/${postId}/comments/${commentId}`);
-      return dispatch(deleteComment(postId, commentId));
+      return dispatch(deleteComment(commentId, postId));
     } catch (error) {
       dispatch(showErr(error))
     }
@@ -166,6 +169,7 @@ function gotOnePost(posts) {
 export function sendVoteToAPI(id, direction) {
   return async function (dispatch) {
     const response = await axios.post(`${POSTS_URL}/${id}/vote/${direction}`);
+    console.log('votes', response)
     return dispatch(vote(id, response.data.votes));
   };
 }
