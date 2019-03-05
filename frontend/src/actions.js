@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 
 
-const POSTS_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000/api/posts";
+const POSTS_URL = `${process.env.REACT_APP_BASE_URL}api/posts` || "http://localhost:5000/api/posts";
 
 
 export function showErr(msg) {
