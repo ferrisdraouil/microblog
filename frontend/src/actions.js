@@ -11,7 +11,9 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 
-const POSTS_URL = 'http://localhost:5000/api/posts';
+
+const POSTS_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000/api/posts";
+
 
 export function showErr(msg) {
   return { type: SHOW_ERR, msg };
