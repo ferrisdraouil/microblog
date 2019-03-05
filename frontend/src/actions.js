@@ -11,9 +11,9 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 
-
-const POSTS_URL = `${process.env.REACT_APP_BASE_URL}api/posts` || "http://localhost:5000/api/posts";
-
+const POSTS_URL = process.env.REACT_APP_BASE_URL
+  ? `${process.env.REACT_APP_BASE_URL}api/posts`
+  : 'http://localhost:5000/api/posts';
 
 export function showErr(msg) {
   return { type: SHOW_ERR, msg };
@@ -107,13 +107,15 @@ function editedPost(postObj, postId) {
 export function addCommentToAPI(commentObj, postId) {
   return async function(dispatch) {
     try {
-      const { comment } = commentObj
-      const res = await axios.post(`${POSTS_URL}/${postId}/comments/`, { text: comment });
-      return dispatch(addComment(res.data, postId))
+      const { comment } = commentObj;
+      const res = await axios.post(`${POSTS_URL}/${postId}/comments/`, {
+        text: comment
+      });
+      return dispatch(addComment(res.data, postId));
     } catch (error) {
-      dispatch(showErr(error))
+      dispatch(showErr(error));
     }
-  }
+  };
 }
 
 function addComment(commentObj, postId) {
@@ -129,9 +131,9 @@ export function deleteCommentFromAPI(commentId, postId) {
       await axios.delete(`${POSTS_URL}/${postId}/comments/${commentId}`);
       return dispatch(deleteComment(commentId, postId));
     } catch (error) {
-      dispatch(showErr(error))
+      dispatch(showErr(error));
     }
-  }
+  };
 }
 
 function deleteComment(commentId, postId) {
@@ -161,7 +163,7 @@ function gotOnePost(posts) {
 }
 
 export function sendVoteToAPI(id, direction) {
-  return async function (dispatch) {
+  return async function(dispatch) {
     const response = await axios.post(`${POSTS_URL}/${id}/vote/${direction}`);
     return dispatch(vote(id, response.data.votes));
   };
@@ -171,6 +173,6 @@ function vote(postId, votes) {
   return {
     type: VOTE,
     postId: postId,
-    votes: votes,
+    votes: votes
   };
 }
