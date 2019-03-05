@@ -22,13 +22,10 @@ export function getAllPosts() {
     try {
       const res = await axios.get(POSTS_URL);
       const posts = res.data;
-      console.log('GET ALL POSTS RES', posts)
 
       const postsObj = posts.reduce((accumulator, post) => {
         const { id, ...rest } = post;
-
         accumulator[post.id] = rest;
-        // accumulator[post.id].comments = {};
         return accumulator;
       }, {});
       dispatch(gotAllPosts(postsObj));
@@ -118,8 +115,6 @@ export function addCommentToAPI(commentObj, postId) {
 }
 
 function addComment(commentObj, postId) {
-  console.log('commentobj', commentObj)
-  console.log('postid', postId)
   return {
     type: ADD_COMMENT,
     payload: { commentObj, postId }
@@ -129,8 +124,6 @@ function addComment(commentObj, postId) {
 export function deleteCommentFromAPI(commentId, postId) {
   return async function(dispatch) {
     try {
-      console.log('commentId', commentId)
-      console.log('postId', postId)
       await axios.delete(`${POSTS_URL}/${postId}/comments/${commentId}`);
       return dispatch(deleteComment(commentId, postId));
     } catch (error) {
@@ -150,7 +143,6 @@ export function getOnePost(postId) {
   return async function(dispatch) {
     try {
       const res = await axios.get(`${POSTS_URL}/${postId}`);
-      // console.log('GOT ONE POST RES', res.data)
       dispatch(gotOnePost(res.data));
     } catch (error) {
       const errorMessage = error.response.data;
@@ -169,7 +161,6 @@ function gotOnePost(posts) {
 export function sendVoteToAPI(id, direction) {
   return async function (dispatch) {
     const response = await axios.post(`${POSTS_URL}/${id}/vote/${direction}`);
-    console.log('votes', response)
     return dispatch(vote(id, response.data.votes));
   };
 }
