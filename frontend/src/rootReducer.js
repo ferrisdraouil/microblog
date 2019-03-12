@@ -15,10 +15,10 @@ import _ from 'lodash';
 const DEFAULT_STATE = {
   posts: {
     [uuid()]: {
-      title: 'the best title',
-      body: 'textHURR',
-      description: 'thebest',
-      comments: { [uuid()]: { text: 'commentText' } }
+      title: '',
+      body: '',
+      description: '',
+      comments: { [uuid()]: { text: '' } }
     }
   },
   error: false
